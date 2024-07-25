@@ -1,0 +1,32 @@
+{% extends 'classroom/classroom_list.html' %}
+
+{% block class %}
+<div class="container mt-5">
+    <h2 class="text-primary">{{ tutorial.title }}</h2>
+    <p>
+        <a href="{{ tutorial.pdf.url }}" class="btn btn-primary" target="_blank">Download PDF</a>
+    </p>
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="{{ tutorial.pdf.url }}" allowfullscreen></iframe>
+    </div>
+
+    <h3 class="mt-4">Discussions</h3>
+    {% for discussion in discussions %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ discussion.created_by.username }}</h5>
+            <p class="card-text">{{ discussion.content }}</p>
+        </div>
+    </div>
+    {% empty %}
+    <p>No discussions yet.</p>
+    {% endfor %}
+
+    <h3 class="mt-4">Add Discussion</h3>
+    <form method="post" class="mb-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Add Discussion</button>
+    </form>
+</div>
+{% endblock %}

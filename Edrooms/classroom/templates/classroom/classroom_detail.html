@@ -1,0 +1,22 @@
+{% extends 'classroom/classroom_list.html' %}
+
+{% block class %}
+<div class="container mt-5">
+    <h2 class="text-primary">{{ classroom.name }}</h2>
+    <p>{{ classroom.description }}</p>
+
+    <h3 class="mt-4">Tutorials</h3>
+    <ul class="list-group">
+        {% for tutorial in classroom.tutorial_set.all %}
+        <li class="list-group-item">
+            <a href="{% url 'classroom:tutorial_detail' tutorial.id %}">{{ tutorial.title }}</a>
+            <span class="text-muted">({{ tutorial.created_by.username }} )</span>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No tutorials yet.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'classroom:add_tutorial' classroom.id %}" class="btn btn-primary mt-3">Add Tutorial</a>
+</div>
+{% endblock %}

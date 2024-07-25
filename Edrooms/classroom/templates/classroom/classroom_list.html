@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+        <a class="navbar-brand" href="#">Classrooms</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">All Classrooms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Enrolled Classes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'classroom:classroom_create' %}">Create Classroom</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% block class %}
+<div class="container-fluid">
+    <!-- Navigation Bar -->
+    
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container mt-3">
+                <div class="row">
+                    {% for classroom in classrooms %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ classroom.name }}</h5>
+                                <p class="card-text">{{ classroom.description }}</p>
+                                <a href="{% url 'classroom:classroom_detail' classroom.id %}"
+                                    class="btn btn-primary">View Notes</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
